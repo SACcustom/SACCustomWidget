@@ -122,6 +122,7 @@
                             value: dataItem.properties.Amount,
                             city: dataItem.properties.City,
                             zip: dataItem.properties.ZipCode,
+			    Contract: dataItem.properties.Contract,	
                             //height: Math.random() * 200,
                             //value: Math.random() * 10000,
                             topColor: '#fff'
@@ -187,8 +188,9 @@
                             const height = data.value;
                             const city = data.city;
                             const zip = data.zip;
+			    const Contract = data.Contract;
                             const infoWindow = this.getInfoWindow();
-                            const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> value : ' + height;
+                            const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> Contract : '+ Contract  +'<br> value : ' + height;
                             infoWindow.setContent(content);
                             if (infoWindow && (!infoWindow._owner)) {
                                 infoWindow.addTo(this);
