@@ -135,9 +135,10 @@
                 console.time(time);
 		//bar color code    
 		data.forEach(d => {
-		    const bar = threeLayer.toBox(d, {},  new THREE.MeshLambertMaterial({ color: d.color, transparent: true, opacity: 1 }));
+		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, d.Contract);
 	            bars.push(bar);
                 });
+               
                // const box = threeLayer.toBoxs(data, {}, material);
                // bars.push(box);
                 console.timeEnd(time);
