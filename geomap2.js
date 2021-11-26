@@ -126,7 +126,7 @@
                             //height: Math.random() * 200,
                             //value: Math.random() * 10000,
                             topColor: '#fff',
-		            color : dataItem.properties.contract		
+		            color : dataItem.properties.Contract		
                         }
                      });
                    
