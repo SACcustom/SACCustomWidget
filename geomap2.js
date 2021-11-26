@@ -125,15 +125,21 @@
 			    Contract: dataItem.properties.Contract,	
                             //height: Math.random() * 200,
                             //value: Math.random() * 10000,
-                            topColor: '#fff'
+                            topColor: '#fff',
+		            color : dataItem.properties.contract		
                         }
                      });
                    
                 }
                 const time = 'time';
                 console.time(time);
-                const box = threeLayer.toBoxs(data, {}, material);
-                bars.push(box);
+		//bar color code    
+		data.forEach(d => {
+		    const bar = threeLayer.toBox(d, {},  new THREE.MeshLambertMaterial({ color: d.color, transparent: true, opacity: 1 }));
+	            bars.push(bar);
+                });
+               // const box = threeLayer.toBoxs(data, {}, material);
+               // bars.push(box);
                 console.timeEnd(time);
 
                 // tooltip test
