@@ -133,10 +133,35 @@
                 }
                 const time = 'time';
                 console.time(time);
-		//bar color code    
+		function getMaterial(color) {
+            if (!materials[color]) {
+                materials[color] = new THREE.MeshLambertMaterial({ color });
+            }
+            return materials[color];
+        }
+        const colors = [
+            '#0B0030',
+            '#100243',
+            '#100243',
+            '#1B048B',
+            '#051FB7',
+            '#0350C1',
+            '#0350C1',
+            '#0072C4',
+            '#0796D3',
+            '#2BA9DF',
+            '#30C7C4',
+            '#6BD5A0',
+            '#A7ECB2',
+            '#D0F4CA'
+        ];
+		    
+		    //bar color code    
 		data.forEach(d => {
-		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, d.Contract);
+			for (let i = 0; i < colors.length; i++) {
+		    const bar = threeLayer.toBox(dataItem.geometry.coordinates,{ height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial(colors[i]));
 	            bars.push(bar);
+			}
                 });
                
                // const box = threeLayer.toBoxs(data, {}, material);
