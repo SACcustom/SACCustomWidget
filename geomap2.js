@@ -160,7 +160,7 @@
 		    //bar color code    
 		data.forEach(d => {
 			for (let i = 0; i < colors.length; i++) {
-		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial(d.Contract));
+		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial(d.color));
 	            bars.push(bar);
 			}
                 });
