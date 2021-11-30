@@ -133,6 +133,7 @@
                 }
                 const time = 'time';
                 console.time(time);
+		    var materials = {};
 		function getMaterial(color) {
             if (!materials[color]) {
                 materials[color] = new THREE.MeshLambertMaterial({ color });
@@ -159,7 +160,7 @@
 		    //bar color code    
 		data.forEach(d => {
 			for (let i = 0; i < colors.length; i++) {
-		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, d.Contract);
+		    const bar = threeLayer.toBox(d.coordinate,{ height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial(d.Contract));
 	            bars.push(bar);
 			}
                 });
