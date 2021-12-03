@@ -144,7 +144,7 @@
                 console.time(time);
 		//bar color code    
 		//data.forEach(d => {
-		    const bar = threeLayer.toBox([13.396791162437012, 52.53627471648187], {},  { height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial(#0B0030));
+		    const bar = threeLayer.toBox('[13.396791162437012, 52.53627471648187]',  { height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial('#0B0030'));
 	            bars.push(bar);
               //  });
                // const box = threeLayer.toBoxs(data, {}, material);
