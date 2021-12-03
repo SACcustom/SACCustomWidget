@@ -104,15 +104,6 @@
 	    };
 	    threeLayer.addTo(map);
 	}
-	
-	var materials = {};
-
-        function getMaterial(color) {
-            if (!materials[color]) {
-                materials[color] = new THREE.MeshLambertMaterial({ color });
-            }
-            return materials[color];
-        }
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
@@ -131,24 +122,17 @@
                             value: dataItem.properties.Amount,
                             city: dataItem.properties.City,
                             zip: dataItem.properties.ZipCode,
-			    Contract: dataItem.properties.Contract,	
                             //height: Math.random() * 200,
                             //value: Math.random() * 10000,
-                            topColor: '#fff',
-		            color : dataItem.properties.Contract		
+                            topColor: '#fff'
                         }
                      });
                    
                 }
                 const time = 'time';
                 console.time(time);
-		//bar color code    
-		//data.forEach(d => {
-		    const bar = threeLayer.toBox('[13.396791162437012, 52.53627471648187]',  { height: 100, altitude: 100, radius: 50, interactive: false }, getMaterial('#0B0030'));
-	            bars.push(bar);
-              //  });
-               // const box = threeLayer.toBoxs(data, {}, material);
-               // bars.push(box);
+                const box = threeLayer.toBoxs(data, {}, material);
+                bars.push(box);
                 console.timeEnd(time);
 
                 // tooltip test
@@ -203,9 +187,8 @@
                             const height = data.value;
                             const city = data.city;
                             const zip = data.zip;
-			    const Contract = data.Contract;
                             const infoWindow = this.getInfoWindow();
-                            const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> Contract : '+ Contract  +'<br> value : ' + height;
+                            const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> value : ' + height;
                             infoWindow.setContent(content);
                             if (infoWindow && (!infoWindow._owner)) {
                                 infoWindow.addTo(this);
