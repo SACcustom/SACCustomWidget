@@ -107,7 +107,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
-                material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+//                 material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
 		let data = "";
@@ -135,27 +135,27 @@
 //                 const box = threeLayer.toBoxs(data, {}, material);
 //                 bars.push(box);
 		data.forEach(dataItem => {
-	            //material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
                     bars.push(bar);
             	});
                 console.timeEnd(time);
 
-                // tooltip test
-//                 box.setToolTip('hello', {
-//                     showTimeout: 0,
-//                     eventsPropagation: true,
-//                     dx: 10
-//                 });
+                tooltip test
+                box.setToolTip('hello', {
+                    showTimeout: 0,
+                    eventsPropagation: true,
+                    dx: 10
+                });
                 threeLayer.addMesh(bars);
 
-                //infowindow test
-//                 box.setInfoWindow({
-//                     content: 'hello world,height:',
-//                     title: 'message',
-//                     animationDuration: 0,
-//                     autoOpenOn: false
-//                 });
+                infowindow test
+                box.setInfoWindow({
+                    content: 'hello world,height:',
+                    title: 'message',
+                    animationDuration: 0,
+                    autoOpenOn: false
+                });
 
 
 //                 ['click', 'empty', 'mousemove'].forEach(function (eventType) {
