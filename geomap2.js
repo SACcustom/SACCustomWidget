@@ -107,7 +107,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
-                material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+                //material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
 		let data = "";
@@ -132,8 +132,13 @@
                 }
                 const time = 'time';
                 console.time(time);
-                const box = threeLayer.toBoxs(data, {}, material);
-                bars.push(box);
+                //const box = threeLayer.toBoxs(data, {}, material);
+                //bars.push(box);
+		data.forEach(dataItem => {
+	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
+                    const bar = threeLayer.toBox(dataItem.coordinate, { height: 100 }, material);
+                    bars.push(bar);
+            	});
                 console.timeEnd(time);
 
                 // tooltip test
