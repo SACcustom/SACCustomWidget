@@ -66,6 +66,7 @@
   	      `;
          
 	 var map = "";
+	
          function load(prop, ele, cent) {
 	    let cen = [];
 	    cen[0] = parseFloat(cent.split(',')[0]);
@@ -107,6 +108,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
+		var materials = {};
 //                 material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
@@ -136,7 +138,7 @@
 //                 bars.push(box);
 		data.forEach(dataItem => {
 	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
-                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
+                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
                     bars.push(bar);
             	});
                 console.timeEnd(time);
@@ -205,6 +207,13 @@
 //                 }); 
                 animation();
                 initGui(ele);
+            }
+	
+	    function getMaterial(color) {
+            if (!materials[color]) {
+                materials[color] = new THREE.MeshLambertMaterial({ color });
+            }
+            return materials[color];
             }
 
             function animation() {
