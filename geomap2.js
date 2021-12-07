@@ -135,7 +135,7 @@
 //                 const box = threeLayer.toBoxs(data, {}, material);
 //                 bars.push(box);
 		data.forEach(dataItem => {
-	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
+	            material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
                     bars.push(bar);
             	});
