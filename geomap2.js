@@ -107,7 +107,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
-//                 material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+                material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
 		let data = "";
@@ -135,7 +135,7 @@
 //                 const box = threeLayer.toBoxs(data, {}, material);
 //                 bars.push(box);
 		data.forEach(dataItem => {
-	            material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+// 	            material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
                     bars.push(bar);
             	});
@@ -204,7 +204,7 @@
 //                     });
 //                 }); 
                 animation();
-                initGui(ele);
+//                 initGui(ele);
             }
 
             function animation() {
