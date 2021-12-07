@@ -138,8 +138,8 @@
 //                 bars.push(box);
 		data.forEach(dataItem => {
 // 	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
-//                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
-                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
+                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
+//                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
                     bars.push(bar);
             	});
                 console.timeEnd(time);
@@ -210,12 +210,12 @@
                 initGui(ele);
             }
 	
-// 	    function getMaterial(color) {
-//             if (!materials[color]) {
-//                 materials[color] = new THREE.MeshLambertMaterial({ color: color, transparent: true, opacity: 1 });
-//             }
-//             return materials[color];
-//             }
+	    function getMaterial(color) {
+            if (!materials[color]) {
+                materials[color] = new THREE.MeshLambertMaterial({ color: color, transparent: true, opacity: 1 });
+            }
+            return materials[color];
+            }
 
             function animation() {
                 // layer animation support Skipping frames
