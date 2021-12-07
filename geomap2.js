@@ -206,7 +206,7 @@
 //                     });
 //                 }); 
                 animation();
-                initGui(ele);
+//                 initGui(ele);
             }
 	
 	    function getMaterial(color) {
