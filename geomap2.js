@@ -204,7 +204,7 @@
 //                     });
 //                 }); 
                 animation();
-//                 initGui(ele);
+                initGui(ele);
             }
 
             function animation() {
