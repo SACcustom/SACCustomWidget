@@ -140,6 +140,7 @@
                     bars.push(bar);
             	});
                 console.timeEnd(time);
+		threeLayer.addMesh(bars);
 
 //                 tooltip test
 //                 box.setToolTip('hello', {
@@ -147,7 +148,6 @@
 //                     eventsPropagation: true,
 //                     dx: 10
 //                 });
-//                 threeLayer.addMesh(bars);
 
 //                 infowindow test
 //                 box.setInfoWindow({
