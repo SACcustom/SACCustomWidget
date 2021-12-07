@@ -202,7 +202,7 @@
 //                             this.openInfoWindow(e.coordinate);
 //                         }
 //                     });
-                }); 
+//                 }); 
                 animation();
                 initGui(ele);
             }
