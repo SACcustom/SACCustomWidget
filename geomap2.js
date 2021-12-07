@@ -120,7 +120,7 @@
                         return {
                             coordinate: dataItem.geometry.coordinates,
                             //height: dataItem.properties.Amount * 2,
-		            height : 200,		
+		            height : dataItem.properties.Amount,		
                             value: dataItem.properties.Amount,
                             city: dataItem.properties.City,
                             zip: dataItem.properties.ZipCode,
@@ -137,9 +137,7 @@
 //                 const box = threeLayer.toBoxs(data, {}, material);
 //                 bars.push(box);
 		data.forEach(dataItem => {
-// 	            material = new THREE.MeshLambertMaterial({ color: dataItem.color, transparent: true, opacity: 1 });
                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
-//                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, material);
                     bars.push(bar);
             	});
                 console.timeEnd(time);
