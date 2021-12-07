@@ -109,7 +109,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
-//                 material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
+                material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
 		let data = "";
@@ -206,12 +206,12 @@
 //                     });
 //                 }); 
                 animation();
-//                 initGui(ele);
+                initGui(ele);
             }
 	
 	    function getMaterial(color) {
             if (!materials[color]) {
-                materials[color] = new THREE.MeshLambertMaterial({ color });
+                materials[color] = new THREE.MeshLambertMaterial({ color: color, transparent: true, opacity: 1 });
             }
             return materials[color];
             }
