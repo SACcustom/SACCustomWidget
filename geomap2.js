@@ -141,21 +141,21 @@
             	});
                 console.timeEnd(time);
 
-                tooltip test
-                box.setToolTip('hello', {
-                    showTimeout: 0,
-                    eventsPropagation: true,
-                    dx: 10
-                });
-                threeLayer.addMesh(bars);
+//                 tooltip test
+//                 box.setToolTip('hello', {
+//                     showTimeout: 0,
+//                     eventsPropagation: true,
+//                     dx: 10
+//                 });
+//                 threeLayer.addMesh(bars);
 
-                infowindow test
-                box.setInfoWindow({
-                    content: 'hello world,height:',
-                    title: 'message',
-                    animationDuration: 0,
-                    autoOpenOn: false
-                });
+//                 infowindow test
+//                 box.setInfoWindow({
+//                     content: 'hello world,height:',
+//                     title: 'message',
+//                     animationDuration: 0,
+//                     autoOpenOn: false
+//                 });
 
 
 //                 ['click', 'empty', 'mousemove'].forEach(function (eventType) {
