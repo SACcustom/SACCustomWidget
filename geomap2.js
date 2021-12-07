@@ -210,12 +210,12 @@
                 initGui(ele);
             }
 	
-	    function getMaterial(color) {
-            if (!materials[color]) {
-                materials[color] = new THREE.MeshLambertMaterial({ color: color, transparent: true, opacity: 1 });
-            }
-            return materials[color];
-            }
+// 	    function getMaterial(color) {
+//             if (!materials[color]) {
+//                 materials[color] = new THREE.MeshLambertMaterial({ color: color, transparent: true, opacity: 1 });
+//             }
+//             return materials[color];
+//             }
 
             function animation() {
                 // layer animation support Skipping frames
