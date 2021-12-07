@@ -136,7 +136,7 @@
                 //bars.push(box);
 		data.forEach(dataItem => {
 	            material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
-                    const bar = threeLayer.toBox(dataItem.coordinate, { dataItem.height: 100, altitude: 100, radius: 50, interactive: false }, material);
+                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height, altitude: 100, radius: 50, interactive: false }, material);
                     bars.push(bar);
             	});
                 console.timeEnd(time);
