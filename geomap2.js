@@ -158,53 +158,53 @@
 //                 });
 
 
-//                 ['click', 'empty', 'mousemove'].forEach(function (eventType) {
-//                     box.on(eventType, function (e) {
-//                         const select = e.selectMesh;
-//                         if (e.type === 'empty' && selectMesh.length) {
-//                             threeLayer.removeMesh(selectMesh);
-//                             selectMesh = [];
-//                         }
+                ['click', 'empty', 'mousemove'].forEach(function (eventType) {
+                    box.on(eventType, function (e) {
+                        const select = e.selectMesh;
+                        if (e.type === 'empty' && selectMesh.length) {
+                            threeLayer.removeMesh(selectMesh);
+                            selectMesh = [];
+                        }
 
-//                         let data, baseObject;
-//                         if (select) {
-//                             data = select.data;
-//                             baseObject = select.baseObject;
-//                             if (baseObject && !baseObject.isAdd) {
-//                                 baseObject.setSymbol(highlightmaterial);
-//                                 threeLayer.addMesh(baseObject);
-//                                 selectMesh.push(baseObject);
-//                             }
-//                         }
+                        let data, baseObject;
+                        if (select) {
+                            data = select.data;
+                            baseObject = select.baseObject;
+                            if (baseObject && !baseObject.isAdd) {
+                                baseObject.setSymbol(highlightmaterial);
+                                threeLayer.addMesh(baseObject);
+                                selectMesh.push(baseObject);
+                            }
+                        }
 
 
-//                         if (selectMesh.length > 20) {
-//                             threeLayer.removeMesh(selectMesh);
-//                             selectMesh = [];
-//                         }
-//                         // override tooltip
-//                         if (e.type === 'mousemove' && data) {
-//                             const height = data.value;
-//                             const tooltip = this.getToolTip();
-//                             tooltip._content = `value:${height}`;
-//                         }
-//                         //override infowindow
-//                         if (e.type === 'click' && data) {
-//                             const height = data.value;
-//                             const city = data.city;
-//                             const zip = data.zip;
-//                             const infoWindow = this.getInfoWindow();
-//                             const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> value : ' + height;
-//                             infoWindow.setContent(content);
-//                             if (infoWindow && (!infoWindow._owner)) {
-//                                 infoWindow.addTo(this);
-//                             }
-//                             this.openInfoWindow(e.coordinate);
-//                         }
-//                     });
-//                 }); 
+                        if (selectMesh.length > 20) {
+                            threeLayer.removeMesh(selectMesh);
+                            selectMesh = [];
+                        }
+                        // override tooltip
+                        if (e.type === 'mousemove' && data) {
+                            const height = data.value;
+                            const tooltip = this.getToolTip();
+                            tooltip._content = `value:${height}`;
+                        }
+                        //override infowindow
+                        if (e.type === 'click' && data) {
+                            const height = data.value;
+                            const city = data.city;
+                            const zip = data.zip;
+                            const infoWindow = this.getInfoWindow();
+                            const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> value : ' + height;
+                            infoWindow.setContent(content);
+                            if (infoWindow && (!infoWindow._owner)) {
+                                infoWindow.addTo(this);
+                            }
+                            this.openInfoWindow(e.coordinate);
+                        }
+                    });
+                }); 
                 animation();
-//                 initGui(ele);
+                initGui(ele);
             }
 
             function animation() {
