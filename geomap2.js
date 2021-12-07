@@ -107,7 +107,7 @@
 
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
-                material = new THREE.MeshLambertMaterial({ color: 'rgb(38,160,146)', transparent: true, opacity: 1 });
+                material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
                 highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
                 
 		let data = "";
@@ -124,6 +124,7 @@
                             zip: dataItem.properties.ZipCode,
                             //height: Math.random() * 200,
                             //value: Math.random() * 10000,
+			    color: dataItem.properties.Contract,
                             topColor: '#fff'
                         }
                      });
