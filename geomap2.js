@@ -120,7 +120,7 @@
                         return {
                             coordinate: dataItem.geometry.coordinates,
                             //height: dataItem.properties.Amount * 2,
-		            height : dataItem.properties.Amount,		
+		            height : parseInt(dataItem.properties.Amount),		
                             value: dataItem.properties.Amount,
                             city: dataItem.properties.City,
                             zip: dataItem.properties.ZipCode,
