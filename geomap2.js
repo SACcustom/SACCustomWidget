@@ -138,72 +138,41 @@
 //                 bars.push(box);
 		data.forEach(dataItem => {
                     const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
+		    
+		    var tooltipTxt = 'Value: ' + dataItem.height;
+		    var infoWindowTxt = 'City : ' + dataItem.city + '<br> ZipCode : ' + dataItem.zip + '<br> Value : ' + dataItem.height;
+	            
+		    bar.setToolTip(tooltipTxt, {
+                        showTimeout: 0,
+                        eventsPropagation: true,
+                        dx: 10
+                    });
+			
+		   bar.setInfoWindow({
+                        content: infoWindowTxt,
+                        title: 'Info',
+                        animationDuration: 0,
+                        autoOpenOn: true
+                    });
+			
+		    ['mouseout', 'mouseover'].forEach(function (eventType) {
+                        bar.on(eventType, function (e) {
+                            // console.log(e.type, e);
+                            // console.log(this);
+                            if (e.type === 'mouseout') {
+                                this.setSymbol(getMaterial(dataItem.color));
+                            }
+                            if (e.type === 'mouseover') {
+                                this.setSymbol(highlightmaterial);
+                            }
+                        });
+                    });
+			
                     bars.push(bar);
             	});
                 console.timeEnd(time);
 		threeLayer.addMesh(bars);
 
-//                 tooltip test
-//                 box.setToolTip('hello', {
-//                     showTimeout: 0,
-//                     eventsPropagation: true,
-//                     dx: 10
-//                 });
-
-//                 infowindow test
-//                 box.setInfoWindow({
-//                     content: 'hello world,height:',
-//                     title: 'message',
-//                     animationDuration: 0,
-//                     autoOpenOn: false
-//                 });
-
-
-//                 ['click', 'empty', 'mousemove'].forEach(function (eventType) {
-//                     box.on(eventType, function (e) {
-//                         const select = e.selectMesh;
-//                         if (e.type === 'empty' && selectMesh.length) {
-//                             threeLayer.removeMesh(selectMesh);
-//                             selectMesh = [];
-//                         }
-
-//                         let data, baseObject;
-//                         if (select) {
-//                             data = select.data;
-//                             baseObject = select.baseObject;
-//                             if (baseObject && !baseObject.isAdd) {
-//                                 baseObject.setSymbol(highlightmaterial);
-//                                 threeLayer.addMesh(baseObject);
-//                                 selectMesh.push(baseObject);
-//                             }
-//                         }
-
-
-//                         if (selectMesh.length > 20) {
-//                             threeLayer.removeMesh(selectMesh);
-//                             selectMesh = [];
-//                         }
-//                         // override tooltip
-//                         if (e.type === 'mousemove' && data) {
-//                             const height = data.value;
-//                             const tooltip = this.getToolTip();
-//                             tooltip._content = `value:${height}`;
-//                         }
-//                         //override infowindow
-//                         if (e.type === 'click' && data) {
-//                             const height = data.value;
-//                             const city = data.city;
-//                             const zip = data.zip;
-//                             const infoWindow = this.getInfoWindow();
-//                             const content = 'City : ' + city + '<br> ZipCode : ' + zip + '<br> value : ' + height;
-//                             infoWindow.setContent(content);
-//                             if (infoWindow && (!infoWindow._owner)) {
-//                                 infoWindow.addTo(this);
-//                             }
-//                             this.openInfoWindow(e.coordinate);
-//                         }
-//                     });
-//                 }); 
                 animation();
                 initGui(ele);
             }
