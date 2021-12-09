@@ -110,7 +110,7 @@
             function addBar(scene, prop, ele) {
                 bars = [], selectMesh = [];
                 material = new THREE.MeshLambertMaterial({ color: 'green', transparent: true, opacity: 1 });
-                highlightmaterial = new THREE.MeshBasicMaterial({ color: 'yellow', transparent: true });
+                highlightmaterial = new THREE.MeshBasicMaterial({ color: 'blue', transparent: true });
                 
 		let data = "";
 		var json = JSON.parse(prop);
