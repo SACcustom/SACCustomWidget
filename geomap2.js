@@ -142,7 +142,7 @@
 //                 const box = threeLayer.toBoxs(data, {}, material);
 //                 bars.push(box);
 		data.forEach(dataItem => {
-                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height }, getMaterial(dataItem.color));
+                    const bar = threeLayer.toBox(dataItem.coordinate, { height: dataItem.height, radius: 200 }, getMaterial(dataItem.color));
 		    
 		    var tooltipTxt = 'Value: ' + dataItem.height;
 		    var infoWindowTxt = 'City : ' + dataItem.city + '<br> ZipCode : ' + dataItem.zip + '<br> Value : ' + dataItem.height;
