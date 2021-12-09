@@ -78,7 +78,7 @@
 	    }
 	    map = new maptalks.Map(ele, {
 		"center": cen,
-		zoom: 13,
+		zoom: 30,
 		pitch: 0,
 		   dragPitch : true,
         //allow map to drag rotating, true by default
