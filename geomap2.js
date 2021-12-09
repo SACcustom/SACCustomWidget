@@ -80,6 +80,11 @@
 		"center": cen,
 		zoom: 14,
 		pitch: 0,
+		   dragPitch : true,
+        //allow map to drag rotating, true by default
+        dragRotate : true,
+        //enable map to drag pitching and rotating at the same time, false by default
+        dragRotatePitch : true,
 		baseLayer: new maptalks.TileLayer('tile', {
 		    urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 		    subdomains: ['a', 'b', 'c', 'd', 'e'],
