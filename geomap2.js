@@ -21,7 +21,7 @@
         const script3 = document.createElement('script');
         script3.type = 'text/javascript';
         script3.src = 'https://unpkg.com/@turf/turf@6/turf.min.js';
-        document.head.appendChild(script4);
+        document.head.appendChild(script3);
         eval(script3);
 
         const script4 = document.createElement('script');
@@ -253,7 +253,7 @@
           });
 
     }
-    
+
     class Box extends HTMLElement {
 
         constructor() {
