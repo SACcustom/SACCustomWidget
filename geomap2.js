@@ -30,6 +30,12 @@
     document.head.appendChild(script4);
     eval(script4);
 
+    const script5 = document.createElement('script');
+    script5.type = 'text/javascript';
+    script5.src = 'https://cdn.jsdelivr.net/npm/gcoord@0.2.3/dist/gcoord.js';
+    document.head.appendChild(script5);
+    eval(script5);
+
   }
 
   let template = document.createElement("template");
