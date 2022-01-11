@@ -318,14 +318,20 @@
         this.$info = changedProperties["info"];
       }
 
-      if ("color" in changedProperties) {
-        this.$color = changedProperties["color"];
+     if ("coordinates" in changedProperties) {
+        this.$coordinates = changedProperties["coordinates"];
       }
+      if ("minvalue" in changedProperties) {
+        this.$minvalue = changedProperties["minvalue"];
+      }
+       if ("maxvalue" in changedProperties) {
+        this.$maxvalue = changedProperties["maxvalue"];
+      }
+   
 
       if (this.$info != null && this.$info != '' && this.$info != undefined) {
         var data = '{"type":"FeatureCollection","features":[' + this.$info + "]}";
-        var center = this.$color;
-
+        var center = this.$coordinates;
         let ele = this._shadowRoot;
 
         //console.log("JSON - " + data);
