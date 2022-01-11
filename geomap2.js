@@ -323,9 +323,11 @@
       }
       if ("minvalue" in changedProperties) {
         this.$minvalue = changedProperties["minvalue"];
+        console.log("Min. value: " + this.$minvalue);
       }
        if ("maxvalue" in changedProperties) {
         this.$maxvalue = changedProperties["maxvalue"];
+         console.log("Max. value: " + this.$maxvalue);
       }
    
 
