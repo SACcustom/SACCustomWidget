@@ -96,7 +96,7 @@
         </body>
     `;
 
-  function load(prop, ele, cent, minvalue, maxvalue, debtScrollbar) {
+  function load(prop, ele, cent, minvalue, maxvalue, debtScrollbar, debtValue) {
 
     let cen = [];
     cen[0] = parseFloat(cent.split(',')[0]);
@@ -185,7 +185,7 @@
 
       debtScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
-        document.getElementById("debt-value").innerHTML = value;
+        debtValue.innerHTML = value;
         map.setFilter('extrusion', ['>', ['get', 'height'], value]);
       };
 
@@ -361,7 +361,7 @@
         let ele = this._shadowRoot;
 
         //console.log("JSON - " + data);
-        load(data, ele.getElementById("map"), center, minvalue, maxvalue, ele.getElementById("debt"));
+        load(data, ele.getElementById("map"), center, minvalue, maxvalue, ele.getElementById("debt"), ele.getElementById("debt-value"));
         //setTimeout(function () {
         //    load(data, this._shadowRoot.getElementById("map"), center);
         //    load(data, ele.getElementById("map"), center);
