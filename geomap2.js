@@ -88,8 +88,8 @@
               <h2>Filters</h2>
             </div>
             <div>
-              <label>Debt Amount (&gt;)</label>
-              <input id="debt" type="range"></input>
+              <label>Debt Amount (&gt;&#61;)</label>
+              <input id="debt" type="range" value="0"></input>
               <span id="debt-value"></span>
             </div>
           </div>
@@ -186,7 +186,7 @@
       debtScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
         debtValue.innerHTML = value;
-        map.setFilter('extrusion', ['>', ['get', 'height'], value]);
+        map.setFilter('extrusion', ['>=', ['get', 'height'], value]);
       };
 
       // d3.csv(dataUrl).then(function (dataFetched) {
