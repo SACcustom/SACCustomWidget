@@ -48,7 +48,8 @@
             body {
                 margin: 0;
                 padding: 0;
-                font-family: Helvetica, Arial, sans-serif;
+                font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+                color: #404040;
               }
           
               #map {
@@ -61,6 +62,7 @@
               #control-panel {
                 position: absolute;
                 background: #fff;
+                border-radius: 4px;
                 top: 0;
                 left: 0;
                 margin: 12px;
