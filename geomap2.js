@@ -180,10 +180,11 @@
 
     map.on('load', function () {
 
-      // var debtScrollbar = document.getElementById("debt");
       debtScrollbar.setAttribute("min", minvalue);
       debtScrollbar.setAttribute("max", maxvalue);
       debtScrollbar.setAttribute("step", "1");
+      debtScrollbar.value = minvalue;
+      debtValue.innerHTML = minvalue;
 
       debtScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
