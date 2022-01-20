@@ -368,6 +368,8 @@
         var center = this.$coordinates;
         let ele = this._shadowRoot;
 
+        ele.getElementById("filter-amount").innerHTML = kpiname + " (&gt;&#61;)";
+
         //console.log("JSON - " + data);
         load(data, ele.getElementById("map"), center, minvalue, maxvalue, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
         //setTimeout(function () {
