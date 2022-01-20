@@ -90,15 +90,15 @@
               <h2>Filters</h2>
             </div>
             <div>
-              <label>Debt Amount (&gt;&#61;)</label>
-              <input id="debt" type="range" value="0"></input>
-              <span id="debt-value"></span>
+              <label id="filter-amount">Filter Amount (&gt;&#61;)</label>
+              <input id="filter-scrollbar" type="range" value="0"></input>
+              <span id="filter-value"></span>
             </div>
           </div>
         </body>
     `;
 
-  function load(prop, ele, cent, minvalue, maxvalue, debtScrollbar, debtValue) {
+  function load(prop, ele, cent, minvalue, maxvalue, kpiname, filterScrollbar, filterValue) {
 
     let cen = [];
     cen[0] = parseFloat(cent.split(',')[0]);
@@ -180,15 +180,15 @@
 
     map.on('load', function () {
 
-      debtScrollbar.setAttribute("min", minvalue);
-      debtScrollbar.setAttribute("max", maxvalue);
-      debtScrollbar.setAttribute("step", "1");
-      debtScrollbar.value = minvalue;
-      debtValue.innerHTML = minvalue;
+      filterScrollbar.setAttribute("min", minvalue);
+      filterScrollbar.setAttribute("max", maxvalue);
+      filterScrollbar.setAttribute("step", "1");
+      filterScrollbar.value = minvalue;
+      filterValue.innerHTML = minvalue;
 
-      debtScrollbar.onchange = (evt) => {
+      filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
-        debtValue.innerHTML = value;
+        filterValue.innerHTML = value;
         map.setFilter('extrusion', ['>=', ['get', 'height'], value]);
       };
 
@@ -266,7 +266,7 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = "<h3>" + "Debt Amount: " + properties.height + "</h3>";
+          var html = "<h3>" + kpiname + ": " + properties.height + "</h3>";
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
@@ -358,13 +358,18 @@
         console.log("Max. value: " + maxvalue);
       }
 
+      if ("KPIName" in changedProperties) {
+        this.$KPIName = changedProperties["KPIName"];
+        var kpiname = this.$KPIName;
+      }
+
       if (this.$info != null && this.$info != '' && this.$info != undefined) {
         var data = '{"type":"FeatureCollection","features":[' + this.$info + "]}";
         var center = this.$coordinates;
         let ele = this._shadowRoot;
 
         //console.log("JSON - " + data);
-        load(data, ele.getElementById("map"), center, minvalue, maxvalue, ele.getElementById("debt"), ele.getElementById("debt-value"));
+        load(data, ele.getElementById("map"), center, minvalue, maxvalue, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
         //setTimeout(function () {
         //    load(data, this._shadowRoot.getElementById("map"), center);
         //    load(data, ele.getElementById("map"), center);
