@@ -347,11 +347,11 @@
         this.$coordinates = changedProperties["coordinates"];
       }
 
-      if ("minvalue" in changedProperties) {
-        this.$minvalue = changedProperties["minvalue"];
+      //if ("minvalue" in changedProperties) {
+      //  this.$minvalue = changedProperties["minvalue"];
         var minvalue = this.$minvalue;
         console.log("Min. value: " + minvalue);
-     }
+     //}
 
       if ("maxvalue" in changedProperties) {
         this.$maxvalue = changedProperties["maxvalue"];
