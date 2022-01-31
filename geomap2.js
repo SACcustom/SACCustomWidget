@@ -98,7 +98,7 @@
         </body>
     `;
 
-  function load(prop, ele, cent, minvalue, maxvalue, kpiname, filterScrollbar, filterValue) {
+  function load(prop, ele, cent, minmax, kpiname, filterScrollbar, filterValue) {
 
     let cen = [];
     cen[0] = parseFloat(cent.split(',')[0]);
@@ -180,11 +180,13 @@
 
     map.on('load', function () {
 
-      filterScrollbar.setAttribute("min", minvalue);
-      filterScrollbar.setAttribute("max", maxvalue);
+      var aMinMax = minmax.split(";");
+
+      filterScrollbar.setAttribute("min", aMinMax[0]);
+      filterScrollbar.setAttribute("max", aMinMax[1]);
       filterScrollbar.setAttribute("step", "1");
-      filterScrollbar.value = minvalue;
-      filterValue.innerHTML = minvalue;
+      filterScrollbar.value = aMinMax[0];
+      filterValue.innerHTML = aMinMax[0];
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
@@ -347,16 +349,10 @@
         this.$coordinates = changedProperties["coordinates"];
       }
 
-      if ("minvalue" in changedProperties) {
-        this.$minvalue = changedProperties["minvalue"];
-        var minvalue = this.$minvalue;
-        console.log("Min. value: " + minvalue);
-     }
-
-      if ("maxvalue" in changedProperties) {
-        this.$maxvalue = changedProperties["maxvalue"];
-        var maxvalue = this.$maxvalue;
-        console.log("Max. value: " + maxvalue);
+      if ("minmax" in changedProperties) {
+        this.$minmax = changedProperties["minmax"];
+        var minmax = this.$minmax;
+        console.log("Min./max. value: " + minmax);
       }
 
       if ("KPIName" in changedProperties) {
@@ -372,7 +368,7 @@
         ele.getElementById("filter-amount").innerHTML = kpiname + " (&gt;&#61;)";
 
         //console.log("JSON - " + data);
-        load(data, ele.getElementById("map"), center, minvalue, maxvalue, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
+        load(data, ele.getElementById("map"), center, minmax, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
         //setTimeout(function () {
         //    load(data, this._shadowRoot.getElementById("map"), center);
         //    load(data, ele.getElementById("map"), center);
