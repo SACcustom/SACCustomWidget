@@ -71,6 +71,32 @@
                 line-height: 1.5;
                 z-index: 1;
               }
+
+              .mapboxgl-popup {
+                opacity: 0.9 !important;
+              }
+          
+              .popup {
+                color: #fff !important; 
+                text-align: center !important;
+                display: flex !important;
+              }
+          
+              .popup-col {
+                width: 50% !important;
+                margin: 5px;
+              }
+          
+              .popup-txt-bold {
+                color: gray !important;
+                font-weight: 700 !important;
+                font-size: 30px !important;
+                line-height: 45px !important;
+              }
+          
+              .popup-txt {
+                color: black !important;
+              }
           
               h2 {
                 padding: 0px;
@@ -268,7 +294,9 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = "<h3>" + kpiname + ": " + properties.height + "</h3>";
+          // var html = "<h3>" + kpiname + ": " + properties.height + "</h3>";
+          var html = '<div class="popup">' + '<div class="popup-col">' + '<div class="popup-txt-bold">' + properties.height + '</div>' + '<div class="popup-txt">' + kpiname + '</div>' + '</div>' 
+          + '<div class="popup-col">' + '<div class="popup-txt-bold">' + '12345' + '</div>' + '<div class="popup-txt">' + 'Post Code' + '</div>' + '</div>' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
