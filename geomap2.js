@@ -220,6 +220,9 @@
       })
     );
 
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+
     var dataUrl = 'https://raw.githubusercontent.com/s-sanocki/PUIC/master/Geomap/mapbox_circles_extrusion/heatmap-data.csv';
 
     map.on('load', function () {
@@ -365,22 +368,6 @@
       this._shadowRoot = this.attachShadow({ mode: "open" });
       this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-      //this.$element = shadowRoot.getElementById("map");
-      //var prop = '{"type":"FeatureCollection","features":[' +
-      //	'{"type": "Feature", "properties": {"City": "New York", "Country": "US", "Contract": "30000033", "ZipCode": "10059", "Amount": "78.68" }, "geometry": {"type": "Point", "coordinates": [113.950375, 22.534875] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"88.68"}, "geometry": {"type":"Point", "coordinates": [113.950625, 22.534875] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"98.68"}, "geometry": {"type":"Point", "coordinates": [113.930625, 22.516125] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"78.68"}, "geometry": {"type":"Point", "coordinates": [113.930375, 22.516125] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"88.68"}, "geometry": {"type":"Point", "coordinates": [113.930125, 22.515625] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"98.68"}, "geometry": {"type":"Point", "coordinates": [113.930125, 22.515875] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"78.68"}, "geometry": {"type":"Point", "coordinates": [113.930375, 22.515625] } },' +
-      //	'{"type":"Feature", "properties": {"City":"New York", "Country":"US", "Contract":"30000033", "ZipCode":"10059", "Amount":"88.68"}, "geometry": {"type":"Point", "coordinates": [113.929625, 22.515625] } },'+
-      //	'{"type":"Feature","properties":{"City":"New York","Country":"US","Contract":"30000033","ZipCode":"10059","Amount":"98.68"},"geometry":{"type":"Point","coordinates":[114.151875,22.555125]}}]}';
-
-      //setTimeout(function () {
-      //    load(prop, shadowRoot.getElementById("map"));
-      //}, 3000);
-
     }
     onCustomWidgetBeforeUpdate(changedProperties) {
       this._props = { ...this._props, ...changedProperties };
@@ -418,12 +405,8 @@
 
         ele.getElementById("filter-amount").innerHTML = kpiname + " (&gt;&#61;)";
 
-        //console.log("JSON - " + data);
         load(data, ele.getElementById("map"), center, minmax, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
-        //setTimeout(function () {
-        //    load(data, this._shadowRoot.getElementById("map"), center);
-        //    load(data, ele.getElementById("map"), center);
-        //}, 3000);
+
       }
     }
   }
