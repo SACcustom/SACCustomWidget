@@ -266,7 +266,7 @@
       }
 
       dataFetched.forEach(function (dataRow) {
-        dataSource.features.push(turf.point(dataRow.coordinates, { height: dataRow.height, color: dataRow.color }));
+        dataSource.features.push(turf.point(dataRow.coordinates, { height: dataRow.height, color: dataRow.color, zip: dataRow.zip }));
       })
 
       map.addSource("coordinates", {
