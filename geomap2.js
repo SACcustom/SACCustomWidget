@@ -76,22 +76,40 @@
                 opacity: 0.9 !important;
               }
           
-              .popup {
-                color: #fff !important; 
+              .popup-kpi-row {
                 text-align: center !important;
                 display: flex !important;
               }
           
-              .popup-col {
+              .popup-kpi-col {
                 width: 50% !important;
                 margin: 5px;
               }
           
-              .popup-txt-bold {
+              .popup-post-code {
+                text-align: center !important;
+                width: 100%;
+              }
+          
+              .popup-kpi-txt {
                 color: gray !important;
                 font-weight: 700 !important;
-                font-size: 30px !important;
-                line-height: 45px !important;
+                font-size: 25px !important;
+                line-height: 35px !important;
+              }
+          
+              .popup-kpi-unit-txt {
+                color: gray !important;
+                font-weight: 700 !important;
+                font-size: 15px !important;
+                line-height: 30px !important;
+              }
+          
+              .popup-post-code-txt {
+                color: black !important;
+                font-weight: 700 !important;
+                font-size: 20px !important;
+                line-height: 35px !important;
               }
           
               .popup-txt {
@@ -294,9 +312,14 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          // var html = "<h3>" + kpiname + ": " + properties.height + "</h3>";
-          var html = '<div class="popup">' + '<div class="popup-col">' + '<div class="popup-txt-bold">' + properties.height + '</div>' + '<div class="popup-txt">' + kpiname + '</div>' + '</div>' 
-          + '<div class="popup-col">' + '<div class="popup-txt-bold">' + '12345' + '</div>' + '<div class="popup-txt">' + 'Post Code' + '</div>' + '</div>' + '</div>';
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt" style="color: green !important;">' + properties.height + '</div>' 
+          + '<div class="popup-kpi-unit-txt" style="color: green !important;">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>' 
+          + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '1234' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'cases' + '</div>'
+          + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>'  + '</div>' 
+          + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '4567' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'tickets' + '</div>' 
+          + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '8901' + '</div>' 
+          + '<div class="popup-kpi-unit-txt">' + 'k USD' + '</div>'+ '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
+          + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.zip + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
