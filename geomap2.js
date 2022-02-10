@@ -395,7 +395,8 @@
 
       if ("KPIName" in changedProperties) {
         this.$KPIName = changedProperties["KPIName"];
-        var kpiname = this.$KPIName;
+        if ( this.$KPIName!= undefined){
+        var kpiname = this.$KPIName;}
       }
 
       if (this.$info != null && this.$info != '' && this.$info != undefined) {
