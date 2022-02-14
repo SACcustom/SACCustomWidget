@@ -350,7 +350,7 @@
         e.source.data.features.forEach(function (f) {
           var object = turf.centerOfMass(f)
           var center = object.geometry.coordinates
-          var radius = 25;
+          var radius = 45;
           var options = {
             steps: 6,
             units: 'meters',
