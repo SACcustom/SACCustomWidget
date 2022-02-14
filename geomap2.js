@@ -142,11 +142,16 @@
         </body>
     `;
 
-  function load(prop, ele, cent, minmax, kpiname, filterScrollbar, filterValue) {
+  function load(data, _props, mapContainer, filterAmount, filterScrollbar, filterValue) {
 
-    let cen = [];
-    cen[0] = parseFloat(cent.split(',')[0]);
-    cen[1] = parseFloat(cent.split(',')[1]);
+    var centerCoordinates = _props["coordinates"];
+    var minValue = _props["minvalue"];
+    var maxValue = _props["maxvalue"];
+    var kpiName = _props["KPIName"];
+
+    let aCenterCoordinates = [];
+    aCenterCoordinates[0] = parseFloat(centerCoordinates.split(',')[0]);
+    aCenterCoordinates[1] = parseFloat(centerCoordinates.split(',')[1]);
 
     /* Given a query in the form "lng, lat" or "lat, lng"
     * returns the matching geographic coordinate(s) */
@@ -199,11 +204,11 @@
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3Nhbm9ja2kiLCJhIjoiY2t3NTB6bWdsMDJ6djMxbDViMTR5OG5waSJ9.Fby0ouQeXSNX8UUqzaoCmw';
 
     var map = new mapboxgl.Map({
-      container: ele,
+      container: mapContainer,
       // style: 'mapbox://styles/mapbox/light-v9',
       style: 'mapbox://styles/mapbox/streets-v11',
       // center: [-0.198465, 51.505538],
-      center: cen,
+      center: aCenterCoordinates,
       zoom: 14,
       pitch: 40,
       antialias: true
@@ -227,13 +232,12 @@
 
     map.on('load', function () {
 
-      var aMinMax = minmax.split(";");
-
-      filterScrollbar.setAttribute("min", aMinMax[0]);
-      filterScrollbar.setAttribute("max", aMinMax[1]);
+      filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
+      filterScrollbar.setAttribute("min", minValue);
+      filterScrollbar.setAttribute("max", maxValue);
       filterScrollbar.setAttribute("step", "1");
-      filterScrollbar.value = aMinMax[0];
-      filterValue.innerHTML = aMinMax[0];
+      filterScrollbar.value = minValue;
+      filterValue.innerHTML = minValue;
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
@@ -253,7 +257,7 @@
       //   })
 
       var dataFetched = [];
-      var json = JSON.parse(prop);
+      var json = JSON.parse(data);
       for (var i = 0; i < json.features.length; i++) {
         dataFetched = json.features.slice(0, Infinity).map(function (dataItem) {
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
@@ -315,14 +319,14 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt" style="color: green !important;">' + properties.height + '</div>' 
-          + '<div class="popup-kpi-unit-txt" style="color: green !important;">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>' 
-          + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '1234' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'cases' + '</div>'
-          + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>'  + '</div>' 
-          + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '4567' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'tickets' + '</div>' 
-          + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '8901' + '</div>' 
-          + '<div class="popup-kpi-unit-txt">' + 'k USD' + '</div>'+ '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
-          + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.zip + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt" style="color: green !important;">' + properties.height + '</div>'
+            + '<div class="popup-kpi-unit-txt" style="color: green !important;">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>'
+            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '1234' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'cases' + '</div>'
+            + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>' + '</div>'
+            + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '4567' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'tickets' + '</div>'
+            + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '8901' + '</div>'
+            + '<div class="popup-kpi-unit-txt">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
+            + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.zip + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
@@ -367,49 +371,28 @@
       super();
       this._shadowRoot = this.attachShadow({ mode: "open" });
       this._shadowRoot.appendChild(template.content.cloneNode(true));
-
+      this._props = {};
     }
+
     onCustomWidgetBeforeUpdate(changedProperties) {
       this._props = { ...this._props, ...changedProperties };
     }
 
     onCustomWidgetAfterUpdate(changedProperties) {
-      if ("value" in changedProperties) {
-        this.$value = changedProperties["value"];
-        console.log("Value: " + this.$value);
+
+      if ("info" in this._props) {
+        this.info = this._props["info"];
+        var data = '{"type":"FeatureCollection","features":[' + this.info + "]}";
       }
 
-      if ("info" in changedProperties) {
-        this.$info = changedProperties["info"];
+      let shadowRoot = this._shadowRoot;
+
+      if (this.info != null && this.info != '' && this.info != undefined) {
+        load(data, this._props, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
       }
 
-      if ("coordinates" in changedProperties) {
-        this.$coordinates = changedProperties["coordinates"];
-      }
-
-      if ("minmax" in changedProperties) {
-        this.$minmax = changedProperties["minmax"];
-        var minmax = this.$minmax;
-        console.log("Min./max. value: " + minmax);
-      }
-
-      if ("KPIName" in changedProperties) {
-        this.$KPIName = changedProperties["KPIName"];
-        if ( this.$KPIName!= undefined){
-        var kpiname = this.$KPIName;}
-      }
-
-      if (this.$info != null && this.$info != '' && this.$info != undefined) {
-        var data = '{"type":"FeatureCollection","features":[' + this.$info + "]}";
-        var center = this.$coordinates;
-        let ele = this._shadowRoot;
-
-        ele.getElementById("filter-amount").innerHTML = kpiname + " (&gt;&#61;)";
-
-        load(data, ele.getElementById("map"), center, minmax, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
-
-      }
     }
+
   }
 
   window.customElements.define("com-demo-gauge", Box);
