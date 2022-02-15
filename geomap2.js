@@ -218,7 +218,7 @@
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         localGeocoder: coordinatesGeocoder,
-        zoom: 4,
+        zoom: 14,
         placeholder: 'Enter location...',
         mapboxgl: mapboxgl,
         reverseGeocode: true
