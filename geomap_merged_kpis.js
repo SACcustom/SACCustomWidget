@@ -400,14 +400,14 @@
 
     onCustomWidgetAfterUpdate(changedProperties) {
 
-      if ("info" in this._props) {
-        this.info = this._props["info"];
-        var data = '{"type":"FeatureCollection","features":[' + this.info + "]}";
+      if ("features" in this._props) {
+        this.features = this._props["features"];
+        var data = '{"type":"FeatureCollection","features":[' + this.features + "]}";
       }
 
       let shadowRoot = this._shadowRoot;
 
-      if (this.info != null && this.info != '' && this.info != undefined) {
+      if (this.features != null && this.features != '' && this.features != undefined) {
         load(data, this._props, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
       }
 
