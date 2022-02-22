@@ -142,11 +142,20 @@
         </body>
     `;
 
-  function load(prop, ele, cent, minmax, kpiname, filterScrollbar, filterValue) {
+  function load(data, _props, mapContainer, filterAmount, filterScrollbar, filterValue) {
 
-    let cen = [];
-    cen[0] = parseFloat(cent.split(',')[0]);
-    cen[1] = parseFloat(cent.split(',')[1]);
+    var centerCoordinates = _props["center_coordinates"];
+    var minValue = _props["min_value"];
+    var maxValue = _props["max_value"];
+    var kpiName = _props["kpi_name"];
+    var debtUnit = _props["debt_unit"];
+    var exceptionUnit = _props["exception_unit"];
+    var serviceUnit = _props["service_unit"];
+    var revenueUnit = _props["revenue_unit"];
+
+    let aCenterCoordinates = [];
+    aCenterCoordinates[0] = parseFloat(centerCoordinates.split(',')[0]);
+    aCenterCoordinates[1] = parseFloat(centerCoordinates.split(',')[1]);
 
     /* Given a query in the form "lng, lat" or "lat, lng"
     * returns the matching geographic coordinate(s) */
@@ -199,11 +208,11 @@
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3Nhbm9ja2kiLCJhIjoiY2t3NTB6bWdsMDJ6djMxbDViMTR5OG5waSJ9.Fby0ouQeXSNX8UUqzaoCmw';
 
     var map = new mapboxgl.Map({
-      container: ele,
+      container: mapContainer,
       // style: 'mapbox://styles/mapbox/light-v9',
       style: 'mapbox://styles/mapbox/streets-v11',
       // center: [-0.198465, 51.505538],
-      center: cen,
+      center: aCenterCoordinates,
       zoom: 14,
       pitch: 40,
       antialias: true
@@ -213,7 +222,7 @@
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         localGeocoder: coordinatesGeocoder,
-        zoom: 4,
+        zoom: 14,
         placeholder: 'Enter location...',
         mapboxgl: mapboxgl,
         reverseGeocode: true
@@ -221,19 +230,18 @@
     );
 
     // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }));
 
     var dataUrl = 'https://raw.githubusercontent.com/s-sanocki/PUIC/master/Geomap/mapbox_circles_extrusion/heatmap-data.csv';
 
     map.on('load', function () {
 
-      var aMinMax = minmax.split(";");
-
-      filterScrollbar.setAttribute("min", aMinMax[0]);
-      filterScrollbar.setAttribute("max", aMinMax[1]);
+      filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
+      filterScrollbar.setAttribute("min", minValue);
+      filterScrollbar.setAttribute("max", maxValue);
       filterScrollbar.setAttribute("step", "1");
-      filterScrollbar.value = aMinMax[0];
-      filterValue.innerHTML = aMinMax[0];
+      filterScrollbar.value = minValue;
+      filterValue.innerHTML = minValue;
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
@@ -253,23 +261,39 @@
       //   })
 
       var dataFetched = [];
-      var json = JSON.parse(prop);
+      var json = JSON.parse(data);
       for (var i = 0; i < json.features.length; i++) {
         dataFetched = json.features.slice(0, Infinity).map(function (dataItem) {
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
           return {
             coordinates: dataItem.geometry.coordinates,
-            height: parseInt(dataItem.properties.Amount),
-            value: dataItem.properties.Amount,
-            city: dataItem.properties.City,
-            zip: dataItem.properties.ZipCode,
-            color: dataItem.properties.Contract,
+            debtAmount: parseInt(dataItem.properties.debt_amount),
+            exceptionAmount: parseInt(dataItem.properties.exception_amount),
+            serviceAmount: parseInt(dataItem.properties.service_amount),
+            revenueAmount: parseInt(dataItem.properties.revenue_amount),
+            postCode: dataItem.properties.post_code,
+            color: dataItem.properties.color,
           }
         });
       }
 
       dataFetched.forEach(function (dataRow) {
-        dataSource.features.push(turf.point(dataRow.coordinates, { height: dataRow.height, color: dataRow.color, zip: dataRow.zip }));
+        dataSource.features.push(turf.point(dataRow.coordinates, {
+          amount: (() => {
+            switch (kpiName) {
+              case 'Debt': return dataRow.debtAmount;
+              case 'Exception': return dataRow.exceptionAmount;
+              case 'Service': return dataRow.serviceAmount;
+              case 'Revenue': return dataRow.revenueAmount;
+            }
+          })(),
+          debtAmount: dataRow.debtAmount,
+          exceptionAmount: dataRow.exceptionAmount,
+          serviceAmount: dataRow.serviceAmount,
+          revenueAmount: dataRow.revenueAmount,
+          color: dataRow.color,
+          postCode: dataRow.postCode
+        }));
       })
 
       map.addSource("coordinates", {
@@ -292,7 +316,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'height'],
+          'fill-extrusion-height': ['get', 'amount'],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
@@ -315,14 +339,14 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt" style="color: green !important;">' + properties.height + '</div>' 
-          + '<div class="popup-kpi-unit-txt" style="color: green !important;">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>' 
-          + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '1234' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'cases' + '</div>'
-          + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>'  + '</div>' 
-          + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '4567' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'tickets' + '</div>' 
-          + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '8901' + '</div>' 
-          + '<div class="popup-kpi-unit-txt">' + 'k USD' + '</div>'+ '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
-          + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.zip + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>'
+            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + properties.exceptionAmount + '</div>' + '<div class="popup-kpi-unit-txt">' + exceptionUnit + '</div>'
+            + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>' + '</div>'
+            + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + properties.serviceAmount + '</div>' + '<div class="popup-kpi-unit-txt">' + serviceUnit + '</div>'
+            + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + properties.revenueAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt">' + revenueUnit + '</div>' + '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
+            + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.postCode + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
@@ -346,7 +370,7 @@
         e.source.data.features.forEach(function (f) {
           var object = turf.centerOfMass(f)
           var center = object.geometry.coordinates
-          var radius = 25;
+          var radius = 60;
           var options = {
             steps: 6,
             units: 'meters',
@@ -367,48 +391,28 @@
       super();
       this._shadowRoot = this.attachShadow({ mode: "open" });
       this._shadowRoot.appendChild(template.content.cloneNode(true));
-
+      this._props = {};
     }
+
     onCustomWidgetBeforeUpdate(changedProperties) {
       this._props = { ...this._props, ...changedProperties };
     }
 
     onCustomWidgetAfterUpdate(changedProperties) {
-      if ("value" in changedProperties) {
-        this.$value = changedProperties["value"];
-        console.log("Value: " + this.$value);
+
+      if ("info" in this._props) {
+        this.info = this._props["info"];
+        var data = '{"type":"FeatureCollection","features":[' + this.info + "]}";
       }
 
-      if ("info" in changedProperties) {
-        this.$info = changedProperties["info"];
+      let shadowRoot = this._shadowRoot;
+
+      if (this.info != null && this.info != '' && this.info != undefined) {
+        load(data, this._props, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
       }
 
-      if ("coordinates" in changedProperties) {
-        this.$coordinates = changedProperties["coordinates"];
-      }
-
-      if ("minmax" in changedProperties) {
-        this.$minmax = changedProperties["minmax"];
-        var minmax = this.$minmax;
-        console.log("Min./max. value: " + minmax);
-      }
-
-      if ("KPIName" in changedProperties) {
-        this.$KPIName = changedProperties["KPIName"];
-        var kpiname = this.$KPIName;
-      }
-
-      if (this.$info != null && this.$info != '' && this.$info != undefined) {
-        var data = '{"type":"FeatureCollection","features":[' + this.$info + "]}";
-        var center = this.$coordinates;
-        let ele = this._shadowRoot;
-
-        ele.getElementById("filter-amount").innerHTML = kpiname + " (&gt;&#61;)";
-
-        load(data, ele.getElementById("map"), center, minmax, kpiname, ele.getElementById("filter-scrollbar"), ele.getElementById("filter-value"));
-
-      }
     }
+
   }
 
   window.customElements.define("com-demo-gauge", Box);
