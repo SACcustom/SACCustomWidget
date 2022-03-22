@@ -268,8 +268,8 @@
           return {
             coordinates: dataItem.geometry.coordinates,
             debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
-            exceptionAmount: Number(dataItem.properties.exception_amount).toFixed(2),
-            serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
+            exceptionAmount: parseInt(dataItem.properties.exception_amount),
+            serviceAmount: parseInt(dataItem.properties.service_amount),
             revenueAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
             postCode: dataItem.properties.post_code,
             color: dataItem.properties.color,
