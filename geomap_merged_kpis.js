@@ -146,8 +146,8 @@
 
     var centerCoordinates = _props["center_coordinates"];
     var minValue = _props["min_value"];
-    var maxValue = _props["max_value"];
-    var kpiName = _props["kpi_name"];
+    var maxValue =  _props["max_value"];
+    var kpiName =  _props["kpi_name"];
     var debtUnit = _props["debt_unit"];
     var exceptionUnit = _props["exception_unit"];
     var serviceUnit = _props["service_unit"];
@@ -237,9 +237,9 @@
     map.on('load', function () {
 
       filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
-      filterScrollbar.setAttribute("min", minValue);
-      filterScrollbar.setAttribute("max", maxValue);
-      filterScrollbar.setAttribute("step", "1");
+      filterScrollbar.setAttribute("min", Number(minValue).toFixed(2));
+      filterScrollbar.setAttribute("max", Number(maxValue).toFixed(2));
+      filterScrollbar.setAttribute("step", "0.1");
       filterScrollbar.value = minValue;
       filterValue.innerHTML = minValue;
 
@@ -267,10 +267,10 @@
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
           return {
             coordinates: dataItem.geometry.coordinates,
-            debtAmount: parseInt(dataItem.properties.debt_amount),
-            exceptionAmount: parseInt(dataItem.properties.exception_amount),
-            serviceAmount: parseInt(dataItem.properties.service_amount),
-            revenueAmount: parseInt(dataItem.properties.revenue_amount),
+            debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
+            exceptionAmount: Number(dataItem.properties.exception_amount).toFixed(2),
+            serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
+            revenueAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
             postCode: dataItem.properties.post_code,
             color: dataItem.properties.color,
           }
@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {
-              case 'Debt': return dataRow.debtAmount;
-              case 'Exception': return dataRow.exceptionAmount;
-              case 'Service': return dataRow.serviceAmount;
-              case 'Revenue': return dataRow.revenueAmount;
+              case 'Debt': return parseInt(dataRow.debtAmount);
+              case 'Exception': return parseInt(dataRow.exceptionAmount);
+              case 'Service': return parseInt(dataRow.serviceAmount);
+              case 'Revenue': return parseInt(dataRow.revenueAmount);
             }
           })(),
           debtAmount: dataRow.debtAmount,
