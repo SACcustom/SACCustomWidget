@@ -237,11 +237,11 @@
     map.on('load', function () {
 
       filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
-      filterScrollbar.setAttribute("min", Number(minValue).toFixed(2));
-      filterScrollbar.setAttribute("max", Number(maxValue).toFixed(2));
-      filterScrollbar.setAttribute("step", "0.1");
-      filterScrollbar.value = Number(minValue).toFixed(2);
-      filterValue.innerHTML = Number(minValue).toFixed(2);
+      filterScrollbar.setAttribute("min", parseInt(minValue));
+      filterScrollbar.setAttribute("max", parseInt(maxValue));
+      filterScrollbar.setAttribute("step", "1");
+      filterScrollbar.value = parseInt(minValue);
+      filterValue.innerHTML = parseInt(minValue);
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
