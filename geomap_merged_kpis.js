@@ -240,8 +240,8 @@
       filterScrollbar.setAttribute("min", Number(minValue).toFixed(2));
       filterScrollbar.setAttribute("max", Number(maxValue).toFixed(2));
       filterScrollbar.setAttribute("step", "0.1");
-      filterScrollbar.value = minValue;
-      filterValue.innerHTML = minValue;
+      filterScrollbar.value = Number(minValue).toFixed(2);
+      filterValue.innerHTML = Number(minValue).toFixed(2);
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
