@@ -144,10 +144,14 @@
 
   function load(data, _props, mapContainer, filterAmount, filterScrollbar, filterValue) {
 
-    var centerCoordinates = _props["coordinates"];
-    var minValue = _props["minvalue"];
-    var maxValue = _props["maxvalue"];
-    var kpiName = _props["KPIName"];
+    var centerCoordinates = _props["center_coordinates"];
+    var minValue = _props["min_value"];
+    var maxValue =  _props["max_value"];
+    var kpiName =  _props["kpi_name"];
+    var debtUnit = _props["debt_unit"];
+    var exceptionUnit = _props["exception_unit"];
+    var serviceUnit = _props["service_unit"];
+    var revenueUnit = _props["revenue_unit"];
 
     let aCenterCoordinates = [];
     aCenterCoordinates[0] = parseFloat(centerCoordinates.split(',')[0]);
@@ -226,23 +230,23 @@
     );
 
     // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl({visualizePitch: true}));
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }));
 
     var dataUrl = 'https://raw.githubusercontent.com/s-sanocki/PUIC/master/Geomap/mapbox_circles_extrusion/heatmap-data.csv';
 
     map.on('load', function () {
 
       filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
-      filterScrollbar.setAttribute("min", minValue);
-      filterScrollbar.setAttribute("max", maxValue);
-      filterScrollbar.setAttribute("step", "1");
+      filterScrollbar.setAttribute("min", Number(minValue).toFixed(2));
+      filterScrollbar.setAttribute("max", Number(maxValue).toFixed(2));
+      filterScrollbar.setAttribute("step", "0.1");
       filterScrollbar.value = minValue;
       filterValue.innerHTML = minValue;
 
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
         filterValue.innerHTML = value;
-        map.setFilter('extrusion', ['>=', ['get', 'height'], value]);
+        map.setFilter('extrusion', ['>=', ['get', 'amount'], value]);
       };
 
       // d3.csv(dataUrl).then(function (dataFetched) {
@@ -263,17 +267,33 @@
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
           return {
             coordinates: dataItem.geometry.coordinates,
-            height: parseInt(dataItem.properties.Amount),
-            value: dataItem.properties.Amount,
-            city: dataItem.properties.City,
-            zip: dataItem.properties.ZipCode,
-            color: dataItem.properties.Contract,
+            debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
+            exceptionAmount: Number(dataItem.properties.exception_amount).toFixed(2),
+            serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
+            revenueAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
+            postCode: dataItem.properties.post_code,
+            color: dataItem.properties.color,
           }
         });
       }
 
       dataFetched.forEach(function (dataRow) {
-        dataSource.features.push(turf.point(dataRow.coordinates, { height: dataRow.height, color: dataRow.color, zip: dataRow.zip }));
+        dataSource.features.push(turf.point(dataRow.coordinates, {
+          amount: (() => {
+            switch (kpiName) {
+              case 'Debt': return parseInt(dataRow.debtAmount);
+              case 'Exception': return parseInt(dataRow.exceptionAmount);
+              case 'Service': return parseInt(dataRow.serviceAmount);
+              case 'Revenue': return parseInt(dataRow.revenueAmount);
+            }
+          })(),
+          debtAmount: dataRow.debtAmount,
+          exceptionAmount: dataRow.exceptionAmount,
+          serviceAmount: dataRow.serviceAmount,
+          revenueAmount: dataRow.revenueAmount,
+          color: dataRow.color,
+          postCode: dataRow.postCode
+        }));
       })
 
       map.addSource("coordinates", {
@@ -296,7 +316,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'height'],
+          'fill-extrusion-height': ['get', 'amount'],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
@@ -319,14 +339,17 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt" style="color: green !important;">' + properties.height + '</div>'
-            + '<div class="popup-kpi-unit-txt" style="color: green !important;">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>'
-            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '1234' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'cases' + '</div>'
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'Debt' + '</div>' + '</div>'
+            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.exceptionAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + exceptionUnit + '</div>'
             + '<div class="popup-txt">' + 'Exception' + '</div>' + '</div>' + '</div>'
-            + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '4567' + '</div>' + '<div class="popup-kpi-unit-txt">' + 'tickets' + '</div>'
-            + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt">' + '8901' + '</div>'
-            + '<div class="popup-kpi-unit-txt">' + 'k USD' + '</div>' + '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
-            + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.zip + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
+            + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Service' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.serviceAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Service' ? ' style="color: ' + properties.color + ' !important;">' : '>') + serviceUnit + '</div>'
+            + '<div class="popup-txt">' + 'Service' + '</div>' + '</div>'
+            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.revenueAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + revenueUnit + '</div>' + '<div class="popup-txt">' + 'Revenue' + '</div>' + '</div>' + '</div>'
+            + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.postCode + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
             .addTo(map);
@@ -380,14 +403,14 @@
 
     onCustomWidgetAfterUpdate(changedProperties) {
 
-      if ("info" in this._props) {
-        this.info = this._props["info"];
-        var data = '{"type":"FeatureCollection","features":[' + this.info + "]}";
+      if ("features" in this._props) {
+        this.features = this._props["features"];
+        var data = '{"type":"FeatureCollection","features":[' + this.features + "]}";
       }
 
       let shadowRoot = this._shadowRoot;
 
-      if (this.info != null && this.info != '' && this.info != undefined) {
+      if (this.features != null && this.features != '' && this.features != undefined) {
         load(data, this._props, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
       }
 
