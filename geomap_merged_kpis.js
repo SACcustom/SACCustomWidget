@@ -142,16 +142,16 @@
         </body>
     `;
 
-  function load(data, _props, mapContainer, filterAmount, filterScrollbar, filterValue) {
+  function load(data, that, mapContainer, filterAmount, filterScrollbar, filterValue) {
 
-    var centerCoordinates = _props["center_coordinates"];
-    var minValue = _props["min_value"];
-    var maxValue = _props["max_value"];
-    var kpiName = _props["kpi_name"];
-    var debtUnit = _props["debt_unit"];
-    var exceptionUnit = _props["exception_unit"];
-    var serviceUnit = _props["service_unit"];
-    var revenueUnit = _props["revenue_unit"];
+    var centerCoordinates = that._props["center_coordinates"];
+    var minValue = that._props["min_value"];
+    var maxValue = that._props["max_value"];
+    var kpiName = that._props["kpi_name"];
+    var debtUnit = that._props["debt_unit"];
+    var exceptionUnit = that._props["exception_unit"];
+    var serviceUnit = that._props["service_unit"];
+    var revenueUnit = that._props["revenue_unit"];
 
     let aCenterCoordinates = [];
     aCenterCoordinates[0] = parseFloat(centerCoordinates.split(',')[0]);
@@ -361,10 +361,6 @@
 
       })
 
-      map.on("moveend", function () {
-        var centerCoordinates = map.getCenter();
-      })
-
       map.on('sourcedata', function (e) {
         if (e.sourceId !== 'coordinates') return
         if (e.isSourceLoaded !== true) return
@@ -389,6 +385,10 @@
       })
 
     });
+
+    map.on("moveend", function () {
+      var centerCoordinates = map.getCenter();
+    }, that);
 
   }
 
@@ -415,7 +415,7 @@
       let shadowRoot = this._shadowRoot;
 
       if (this.features != null && this.features != '' && this.features != undefined) {
-        load(data, this._props, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
+        load(data, this, shadowRoot.getElementById("map"), shadowRoot.getElementById("filter-amount"), shadowRoot.getElementById("filter-scrollbar"), shadowRoot.getElementById("filter-value"));
       }
 
     }
