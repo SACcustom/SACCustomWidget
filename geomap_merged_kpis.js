@@ -361,9 +361,19 @@
 
       })
 
-      map.on("moveend", function () {
+      function extend(fn, context, map) {
+        return (e) => {
+          e.context = context;
+          e.map = map;
+          fn(e)
+        }
+      }
+
+      function updateCenterCoordinates(e) {
         var centerCoordinates = map.getCenter();
-      })
+      }
+
+      map.on("moveend", extend(updateCenterCoordinates, that, map))
 
       map.on('sourcedata', function (e) {
         if (e.sourceId !== 'coordinates') return
