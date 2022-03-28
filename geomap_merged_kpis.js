@@ -146,8 +146,8 @@
 
     var centerCoordinates = _props["center_coordinates"];
     var minValue = _props["min_value"];
-    var maxValue =  _props["max_value"];
-    var kpiName =  _props["kpi_name"];
+    var maxValue = _props["max_value"];
+    var kpiName = _props["kpi_name"];
     var debtUnit = _props["debt_unit"];
     var exceptionUnit = _props["exception_unit"];
     var serviceUnit = _props["service_unit"];
@@ -359,6 +359,10 @@
           }
         }
 
+      })
+
+      map.on("moveend", function () {
+        var centerCoordinates = map.getCenter();
       })
 
       map.on('sourcedata', function (e) {
