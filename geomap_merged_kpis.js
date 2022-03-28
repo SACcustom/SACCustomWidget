@@ -361,6 +361,10 @@
 
       })
 
+      map.on("moveend", function () {
+        var centerCoordinates = map.getCenter();
+      }, that)
+
       map.on('sourcedata', function (e) {
         if (e.sourceId !== 'coordinates') return
         if (e.isSourceLoaded !== true) return
@@ -385,10 +389,6 @@
       })
 
     });
-
-    map.on("moveend", function () {
-      var centerCoordinates = map.getCenter();
-    }, that);
 
   }
 
