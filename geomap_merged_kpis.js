@@ -371,7 +371,7 @@
 
       function updateCenterCoordinates(e) {
         var oCenterCoordinates = map.getCenter();
-        e.context._props["center_coordinates"] = oCenterCoordinates.lat.toFixed(6) + ',' + oCenterCoordinates.lng.toFixed(6);
+        e.context._props["center_coordinates"] = oCenterCoordinates.lng.toFixed(6) + ',' + oCenterCoordinates.lat.toFixed(6);
       }
 
       map.on("moveend", extend(updateCenterCoordinates, that, map))
