@@ -1,0 +1,142 @@
+
+{
+	"id": "com.demo.eymap",
+	"version": "1.1.0",
+	"name": "EY MAP Merge",
+	"description": "geomap_merged_kpis",
+	"newInstancePrefix": "MAP",
+	"icon": "https://raw.githubusercontent.com/jainnaman280/GeoMap/main/MicrosoftTeams-image.png",
+	"vendor": "EY",
+	"eula": "EULA",
+	"license": "1.0",
+	"webcomponents": [
+		{
+			"kind": "main",
+			"tag": "com-demo-gauge",
+			"url": "https://saccustom.github.io/SACCustomWidget/GeoMap_Co2.js",
+			"integrity": "",
+			"ignoreIntegrity": true
+		}
+		
+	],
+	"properties": {
+		"features": {
+			"type": "string",
+			"description": "Map info",
+			"default":  ""
+		},
+		"center_coordinates": {
+			"type": "string",
+			"description": "Text coordinates info",
+			"default": "-73.9277,42.4561"
+
+		},
+		"min_value": {
+			"type": "number",
+			"description": "add min and max value with semicolon",
+			"default":  0
+			},
+		"max_value": {
+			"type": "number",
+			"description": "add min and max value with semicolon",
+			"default":  100
+			},
+		"kpi_name": {
+			"type": "string",
+			"description": "Kpi Name passing",
+			"default":  ""
+			},
+		"debt_unit": {
+			"type": "string",
+			"description": "Debt Units scale",
+			"default":  ""
+			},
+		"service_unit": {
+			"type": "string",
+			"description": "service Units scale",
+			"default":  ""
+			},
+		"exception_unit": {
+			"type": "string",
+			"description": "exception Units scale",
+			"default":  ""
+			},
+		"revenue_unit": {
+			"type": "string",
+			"description": "revenue Units scale",
+			"default":  ""
+			},
+		"width": {
+			"type": "integer",
+			"default": 100
+		},
+		"height": {
+			"type": "integer",
+			"default": 100
+		}
+	},
+	"methods": {
+		"setValue": {
+			"description": "Sets the Gauge value.",
+			"parameters": [
+				{
+					"name": "newfeatures",
+					"type": "string",
+					"description": "Map info"
+				},
+				{
+					"name": "newcenter_coordinates",
+					"type": "string",
+					"description": "center Coordinates info"
+				},
+				{
+					"name": "newminvalue",
+					"type": "number",
+					"description": "enter min value"
+				},
+				{
+					"name": "newmaxvalue",
+					"type": "number",
+					"description": "enter max value"
+				},
+				{
+					"name": "newKPIName",
+					"type": "string",
+					"description": "KPI Name"
+				},
+
+				{
+					"name": "newdebt_unit",
+					"type": "string",
+					"description": "debt_unit scale"
+				},
+				{
+					"name": "newservice_unit",
+					"type": "string",
+					"description": "service_unit scale"
+				},
+				{
+					"name": "newexception_unit",
+					"type": "string",
+					"description": "exception_unit scale"
+				},
+				{
+					"name": "newrevenue_unit",
+					"type": "string",
+					"description": "revenue_unit scale"
+				}
+			],
+			"body": "this.features = newfeatures; this.center_coordinates = newcenter_coordinates;this.min_value = newminvalue;this.max_value = newmaxvalue;this.kpi_name = newKPIName;this.debt_unit = newdebt_unit;this.service_unit = newservice_unit;this.exception_unit = newexception_unit;this.revenue_unit = newrevenue_unit;"
+		},
+		"getValue": {
+			"returnType": "string",
+			"description": "Returns the center_coordinates.",
+			"body": "return this.center_coordinates;"
+		}
+	},
+	"events": {
+		"onClick": {
+			"description": "Called when the user clicks the Box."
+		}
+	}
+}
