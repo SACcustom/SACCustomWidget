@@ -326,6 +326,7 @@
       var popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false,
+        closeOnClick: false,
         anchor: 'top',
       });
 
@@ -339,8 +340,8 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2 Emissions' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
-            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'CO2 Emissions' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2 Emissions' + '</div>' + '</div>'
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2 Emissions' + '</div>' + '</div>'
             + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.exceptionAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + exceptionUnit + '</div>'
             + '<div class="popup-txt">' + 'Consumption' + '</div>' + '</div>' + '</div>'
@@ -348,7 +349,7 @@
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Service' ? ' style="color: ' + properties.color + ' !important;">' : '>') + serviceUnit + '</div>'
             + '<div class="popup-txt">' + '' + '</div>' + '</div>'
             + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.revenueAmount + '</div>'
-            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + revenueUnit + '</div>' + '<div class="popup-txt">' + '' + '</div>' + '</div>' + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + revenueUnit + '</div>' + '<div class="popup-txt">' + ' ' + '</div>' + '</div>' + '</div>'
             + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.postCode + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
