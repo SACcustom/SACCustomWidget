@@ -339,8 +339,8 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
-            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Debt' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2' + '</div>' + '</div>'
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2 Emissions' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'CO2 Emissions' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2 Emissions' + '</div>' + '</div>'
             + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.exceptionAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + exceptionUnit + '</div>'
             + '<div class="popup-txt">' + 'Consumption' + '</div>' + '</div>' + '</div>'
