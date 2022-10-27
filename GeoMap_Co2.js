@@ -270,7 +270,7 @@
             debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
             exceptionAmount: parseInt(dataItem.properties.exception_amount),
             serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
-            revenueAmount: (dataItem.properties.revenue_amount),
+            revenueAmount:  Number(dataItem.properties.revenue_amount).toFixed(2),
             postCode: dataItem.properties.post_code,
             color: dataItem.properties.color,
           }
@@ -339,7 +339,7 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.revenueAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2 Emissions' + '</div>' + '</div>'
             + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.exceptionAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + exceptionUnit + '</div>'
