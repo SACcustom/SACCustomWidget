@@ -267,7 +267,7 @@
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
           return {
             coordinates: dataItem.geometry.coordinates,
-            debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
+            debtAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
             exceptionAmount: parseInt(dataItem.properties.exception_amount),
             serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
             revenueAmount:  Number(dataItem.properties.revenue_amount).toFixed(2),
@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {
-              case 'Revenue': return parseInt(dataRow.debtAmount);
+              case 'CO2': return parseInt(dataRow.debtAmount);
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'CO2': return parseInt(dataRow.revenueAmount);
+              case 'Revenue': return parseInt(dataRow.revenueAmount);
             }
           })(),
           debtAmount: dataRow.debtAmount,
