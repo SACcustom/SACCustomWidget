@@ -267,7 +267,7 @@
           dataItem = gcoord.transform(dataItem, gcoord.AMap, gcoord.WGS84);
           return {
             coordinates: dataItem.geometry.coordinates,
-            debtAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
+            debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
             exceptionAmount: parseInt(dataItem.properties.exception_amount),
             serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
             revenueAmount:  Number(dataItem.properties.revenue_amount).toFixed(2),
