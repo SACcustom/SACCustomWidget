@@ -236,7 +236,7 @@
 
     map.on('load', function () {
 
-      filterAmount.innerHTML =  + " (&gt;&#61;)";
+      filterAmount.innerHTML = kpiName + " (&gt;&#61;)";
       filterScrollbar.setAttribute("min", parseInt(minValue));
       filterScrollbar.setAttribute("max", parseInt(maxValue));
       filterScrollbar.setAttribute("step", "1");
@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {             
-              case 'CO2': return parseInt(dataRow.revenueAmount);
+              case 'CO2': return parseInt(dataRow.debtAmount);
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'Revenue': return parseInt(dataRow.debtAmount);
+              case 'Revenue': return parseInt(dataRow.revenueAmount);
             }
           })(),
           debtAmount: dataRow.debtAmount,
