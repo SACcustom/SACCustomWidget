@@ -148,7 +148,7 @@
     var minValue = that._props["min_value"];
     var maxValue = that._props["max_value"];
     var kpiName = that._props["kpi_name"];
-    var debtUnit = that._props["debt_unit"];
+    var debtUnit = that._props["revenue_unit"];
     var exceptionUnit = that._props["exception_unit"];
     var serviceUnit = that._props["service_unit"];
     var revenueUnit = that._props["revenue_unit"];
