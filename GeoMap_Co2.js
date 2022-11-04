@@ -246,7 +246,7 @@
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
         filterValue.innerHTML = value;
-        map.setFilter('extrusion', ['>=', ['get', 'debtAmount'], value]);
+        map.setFilter('extrusion', ['>=', ['get', 'amount'], value]);
       };
 
       // d3.csv(dataUrl).then(function (dataFetched) {
@@ -316,7 +316,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'amount' ],
+          'fill-extrusion-height': ['get', 'debtAmount' ],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
