@@ -284,7 +284,7 @@
               case 'CO2': return parseInt(dataRow.debtAmount);
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'Revenue': return Number(dataRow.revenueAmount);
+              case 'Revenue': return parseInt(dataRow.revenueAmount);
             }
           })(),
           debtAmount: dataRow.debtAmount,
