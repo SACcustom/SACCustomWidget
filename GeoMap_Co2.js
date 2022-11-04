@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {
-              case 'Revenue': return parseInt(dataRow.debtAmount);
+              case 'CO2': return parseInt(dataRow.debtAmount);
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'CO2': return Number(dataRow.revenueAmount);
+              case 'Revenue': return Number(dataRow.revenueAmount);
             }
           })(),
           debtAmount: dataRow.debtAmount,
