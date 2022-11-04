@@ -246,7 +246,7 @@
       filterScrollbar.onchange = (evt) => {
         var value = Number(evt.target.value);
         filterValue.innerHTML = value;
-        map.setFilter('extrusion', ['>=', ['get', 'amount'], value]);
+        map.setFilter('extrusion', ['>=', ['get', 'debtAmount'], value]);
       };
 
       // d3.csv(dataUrl).then(function (dataFetched) {
