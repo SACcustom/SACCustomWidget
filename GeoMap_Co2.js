@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {
-              case 'CO2': return parseInt(dataRow.debtAmount) ;
+              case 'Revenue': return parseInt(dataRow.debtAmount) ;
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'Revenue': return parseInt(dataRow.revenueAmount) ;
+              case 'CO2': return parseInt(dataRow.revenueAmount) ;
             }
           })(),
           debtAmount: dataRow.debtAmount,
@@ -292,7 +292,8 @@
           serviceAmount: dataRow.serviceAmount,
           revenueAmount: dataRow.revenueAmount,
           color: dataRow.color,
-          postCode: dataRow.postCode
+          postCode: dataRow.postCode,
+		  xyz: parseInt(dataRow.debtAmount) 
         }));
       })
 
@@ -316,7 +317,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'amount' ],
+          'fill-extrusion-height': ['get', 'xyz' ],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
