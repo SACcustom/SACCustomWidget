@@ -316,7 +316,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height':  ['get', 'debtAmount'],
+          'fill-extrusion-height': ['get', 'debtAmount' ],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
