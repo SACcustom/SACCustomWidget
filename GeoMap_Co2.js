@@ -284,7 +284,7 @@
               case 'Revenue': return parseInt(dataRow.debtAmount) ;
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'CO2': return parseInt(dataRow.revenueAmount) ;
+              case 'CO2': return Number(dataRow.revenueAmount).toFixed(2) ;
             }
           })(),
           debtAmount: dataRow.debtAmount,
@@ -316,7 +316,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'debt_amount' ],
+          'fill-extrusion-height': ['get', 'amount' ] * 100,
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
