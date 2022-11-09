@@ -287,12 +287,13 @@
               case 'CO2': return Number(dataRow.revenueAmount).toFixed(2) ;
             }
           })(),
-          debtAmount: dataRow.debtAmount,
+          revenueAmount: dataRow.debtAmount,
           exceptionAmount: dataRow.exceptionAmount,
           serviceAmount: dataRow.serviceAmount,
-          revenueAmount: dataRow.revenueAmount,
+          debtAmount: dataRow.revenueAmount,
           color: dataRow.color,
           postCode: dataRow.postCode
+          
         }));
       })
 
@@ -316,7 +317,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'amount' ] * 100,
+          'fill-extrusion-height': ['get', 'amount' ] ,
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
