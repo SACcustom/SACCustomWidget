@@ -293,7 +293,7 @@
           revenueAmount: dataRow.revenueAmount,
           color: dataRow.color,
           postCode: dataRow.postCode,
-		  xyz: parseInt(dataRow.debtAmount) 
+		  Co2BarHeight: parseInt(dataRow.debtAmount) 
         }));
       })
 
@@ -317,7 +317,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'xyz' ],
+          'fill-extrusion-height': ['get', 'Co2BarHeight' ],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
