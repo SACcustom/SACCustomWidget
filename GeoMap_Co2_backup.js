@@ -270,7 +270,7 @@
             debtAmount: Number(dataItem.properties.debt_amount).toFixed(2),
             exceptionAmount: parseInt(dataItem.properties.exception_amount),
             serviceAmount: Number(dataItem.properties.service_amount).toFixed(2),
-            revenueAmount: (dataItem.properties.revenue_amount),
+            revenueAmount: Number(dataItem.properties.revenue_amount).toFixed(2),
             postCode: dataItem.properties.post_code,
             color: dataItem.properties.color,
           }
@@ -281,10 +281,10 @@
         dataSource.features.push(turf.point(dataRow.coordinates, {
           amount: (() => {
             switch (kpiName) {
-              case 'CO2': return parseInt(dataRow.debtAmount);
+              case 'Revenue': return parseInt(dataRow.debtAmount) ;
               case 'Exception': return parseInt(dataRow.exceptionAmount);
               case 'Service': return parseInt(dataRow.serviceAmount);
-              case 'Revenue': return parseInt(dataRow.revenueAmount);
+              case 'CO2': return parseInt(dataRow.revenueAmount) ;
             }
           })(),
           debtAmount: dataRow.debtAmount,
@@ -292,7 +292,8 @@
           serviceAmount: dataRow.serviceAmount,
           revenueAmount: dataRow.revenueAmount,
           color: dataRow.color,
-          postCode: dataRow.postCode
+          postCode: dataRow.postCode,
+		         Co2BarHeight: parseInt(dataRow.debtAmount) 
         }));
       })
 
@@ -316,7 +317,7 @@
         'paint': {
           // 'fill-extrusion-color': '#00f',
           'fill-extrusion-color': ['get', 'color'],
-          'fill-extrusion-height': ['get', 'amount'],
+          'fill-extrusion-height': ['get', 'Co2BarHeight' ],
           'fill-extrusion-base': 0,
           'fill-extrusion-opacity': 0.9
         }
@@ -339,7 +340,7 @@
 
         if (query.length) {
           var properties = query[0].properties;
-          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.debtAmount + '</div>'
+          var html = '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.revenueAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'CO2' ? ' style="color: ' + properties.color + ' !important;">' : '>') + debtUnit + '</div>' + '<div class="popup-txt">' + 'CO2 Emissions' + '</div>' + '</div>'
             + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.exceptionAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Exception' ? ' style="color: ' + properties.color + ' !important;">' : '>') + exceptionUnit + '</div>'
@@ -347,8 +348,8 @@
             + '<div class="popup-kpi-row">' + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Service' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.serviceAmount + '</div>'
             + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Service' ? ' style="color: ' + properties.color + ' !important;">' : '>') + serviceUnit + '</div>'
             + '<div class="popup-txt">' + '' + '</div>' + '</div>'
-            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + properties.revenueAmount + '</div>'
-            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + revenueUnit + '</div>' + '<div class="popup-txt">' + ' ' + '</div>' + '</div>' + '</div>'
+            + '<div class="popup-kpi-col">' + '<div class="popup-kpi-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + '' + '</div>'
+            + '<div class="popup-kpi-unit-txt"' + (kpiName === 'Revenue' ? ' style="color: ' + properties.color + ' !important;">' : '>') + revenueUnit + '</div>' + '<div class="popup-txt">' +  ''  + '</div>' + '</div>' + '</div>'
             + '<hr>' + '<div class="popup-post-code">' + '<div class="popup-post-code-txt">' + properties.postCode + '</div>' + '<img src="https://seekicon.com/free-icon-download/post_1.svg" width="10%" height="10%">' + '</div>';
           popup.setLngLat(coordinates)
             .setHTML(html)
